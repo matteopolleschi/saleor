@@ -25,6 +25,7 @@ cssselect2==0.2.1         # via cairosvg, weasyprint
 defusedxml==0.5.0         # via cairosvg, python3-openid, social-auth-core
 dj-database-url==0.4.2
 dj-email-url==0.0.10
+django-appconf==1.0.2     # via django-measurement
 django-babel==0.6.2
 django-bootstrap4==0.0.5
 django-cache-url==2.0.0
@@ -39,6 +40,7 @@ django-fsm==2.6.0
 django-graphql-jwt==0.1.9
 django-impersonate==1.3
 django-js-asset==1.0.0    # via django-mptt
+django-measurement==3.0.0
 django-mptt==0.9.0
 django-payments==0.12.3
 django-phonenumber-field==2.0.0
@@ -65,7 +67,7 @@ graphene==2.1.3           # via django-graphql-jwt, graphene-django
 graphql-core==2.1         # via graphene, graphene-django, graphql-relay
 graphql-relay==0.4.5      # via graphene
 html5lib==1.0.1           # via bleach, weasyprint
-idna==2.6                 # via cryptography, requests
+idna==2.6                 # via cryptography, requests, yarl
 iso8601==0.1.12           # via graphene-django
 jmespath==0.9.3           # via boto3, botocore
 jsonfield==2.0.2
@@ -73,6 +75,9 @@ kombu==4.2.1              # via celery
 markdown==2.6.11
 maxminddb-geolite2==2017.803
 maxminddb==1.3.0
+measurement==2.0.1        # via django-measurement
+mpmath==1.0.0             # via sympy
+multidict==4.3.1          # via yarl
 oauthlib==2.0.6           # via requests-oauthlib, social-auth-core
 pdfrw==0.4                # via weasyprint
 phonenumberslite==8.9.1
@@ -101,12 +106,13 @@ requests==2.18.4
 rx==1.6.0                 # via graphql-core
 s3transfer==0.1.12        # via boto3
 singledispatch==3.4.0.3   # via graphene-django
-six==1.11.0               # via bleach, cryptography, django-environ, django-templated-email, elasticsearch-dsl, faker, freezegun, graphene, graphene-django, graphql-core, graphql-relay, html5lib, promise, purl, pytest, python-dateutil, singledispatch, social-auth-app-django, social-auth-core, vcrpy
+six==1.11.0               # via bleach, cryptography, django-environ, django-templated-email, elasticsearch-dsl, faker, freezegun, graphene, graphene-django, graphql-core, graphql-relay, html5lib, measurement, promise, purl, pytest, python-dateutil, singledispatch, social-auth-app-django, social-auth-core, vcrpy
 social-auth-app-django==2.1.0
 social-auth-core==1.6.0   # via social-auth-app-django
 sqlparse==0.2.4           # via django-debug-toolbar
 stripe==1.77.1            # via django-payments
 suds-jurko==0.6           # via django-payments
+sympy==1.2                # via measurement
 text-unidecode==1.1
 tinycss2==0.6.1           # via cairosvg, cssselect2, weasyprint
 typing==3.6.2             # via google-measurement-protocol, prices, promise
@@ -118,3 +124,4 @@ weasyprint==0.42.2
 webencodings==0.5.1       # via html5lib, tinycss2
 wrapt==1.10.11            # via vcrpy
 xmltodict==0.11.0         # via django-payments
+yarl==1.2.6               # via vcrpy

@@ -14,7 +14,6 @@ from ..core.i18n import COUNTRY_CODE_CHOICES
 from ..core.utils import format_money
 from ..core.utils.taxes import display_gross_prices
 from ..discount.models import NotApplicable, Voucher
-from ..shipping.models import ShippingMethod
 from ..shipping.utils import get_shipment_options, get_taxed_shipping_price
 from .models import Cart
 
@@ -161,13 +160,14 @@ class ReplaceCartLineForm(AddToCartForm):
 
 class CountryForm(forms.Form):
     """Country selection form."""
+    #TODO we should only display countries with valid shipping methods
+    country = LazyTypedChoiceField(
+        label=pgettext_lazy('Country form field label', 'Country'),	
+        choices=COUNTRY_CODE_CHOICES)
 
     def __init__(self, *args, **kwargs):
         self.taxes = kwargs.pop('taxes', {})
         super().__init__(*args, **kwargs)
-        self.fields['country'] = LazyTypedChoiceField(
-            label=pgettext_lazy('Country form field label', 'Country'),
-            choices=COUNTRY_CODE_CHOICES)
 
     def get_shipment_options(self):
         """Return a list of shipping methods for the selected country."""
@@ -257,6 +257,8 @@ class ShippingMethodChoiceField(forms.ModelChoiceField):
 
 
 class CartShippingMethodForm(forms.ModelForm):
+    from ..shipping.models import ShippingMethod
+
     """Cart shipping method form."""
     shipping_method = ShippingMethodChoiceField(
         queryset=ShippingMethod.objects.prefetch_related(

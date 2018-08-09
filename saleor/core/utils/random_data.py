@@ -499,7 +499,8 @@ def create_product_sales(how_many=5):
         yield 'Sale: %s' % (sale,)
 
 
-def create_shipping_zone(shipping_methods_names, countries, shipping_zone_name):
+def create_shipping_zone(
+        shipping_methods_names, countries, shipping_zone_name):
     shipping_zone = ShippingZone.objects.get_or_create(
         name=shipping_zone_name, defaults={'countries': countries})[0]
     shipping_methods = [

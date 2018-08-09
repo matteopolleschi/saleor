@@ -1,7 +1,8 @@
 from django import forms
 from django.utils.translation import pgettext_lazy
 
-from ...shipping.models import ShippingZone, ShippingMethod
+from ...shipping.models import ShippingMethod, ShippingZone
+from ...shipping import ShippingMethodType
 
 
 def currently_used_countries(shipping_zone_pk=None):
@@ -58,11 +59,26 @@ class ShippingMethodForm(forms.ModelForm):
 
     class Meta:
         model = ShippingMethod
-        exclude = ['shipping_zone']
+        exclude = ['shipping_zone', 'type']
         labels = {
             'name': pgettext_lazy(
                 'Shipping Method name', 'Name'),
-            'type': pgettext_lazy(
-                'Shipping Method type', 'Type'),
             'price': pgettext_lazy(
                 'Currency amount', 'Price')}
+        help_texts = {
+            'name': pgettext_lazy(
+                'Shipping method name help text',
+                'Customers will see this at the checkout.')}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.type == ShippingMethodType.WEIGHT_BASED:
+            del self.fields['minimum_order_price']
+            del self.fields['maximum_order_price']
+        else:
+            del self.fields['minimum_order_weight']
+            del self.fields['maximum_order_weight']
+            self.fields['minimum_order_price'].required = False
+            self.fields['maximum_order_price'].widget.attrs['placeholder'] = pgettext_lazy(
+                'Placeholder for maximum order price set to unlimited', 'No limit')
+

@@ -97,6 +97,10 @@ class Cart(models.Model):
             + self.get_shipping_price(taxes)
             - self.discount_amount)
 
+    def get_total_weight(self):
+        weights = (line.variant.get_weight() for line in self)
+        return sum(weights)
+
     def get_line(self, variant):
         """Return a line matching the given variant and data if any."""
         matching_lines = (line for line in self if line.variant == variant)

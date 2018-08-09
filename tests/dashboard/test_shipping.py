@@ -59,8 +59,9 @@ def test_shipping_zone_delete(admin_client, shipping_zone):
 
 def test_shipping_method_add(admin_client, shipping_zone):
     assert ShippingMethod.objects.count() == 1
-    url = reverse('dashboard:shipping-method-add',
-                  kwargs={'shipping_zone_pk': shipping_zone.pk})
+    url = reverse(
+        'dashboard:shipping-method-add', kwargs={
+            'shipping_zone_pk': shipping_zone.pk, 'type': 'price'})
     data = {
         'name': 'DHL', 'price': '50', 'shipping_zone': shipping_zone.pk,
         'type': ShippingMethodType.PRICE_BASED}
@@ -71,8 +72,9 @@ def test_shipping_method_add(admin_client, shipping_zone):
 
 def test_shipping_method_add_not_valid(admin_client, shipping_zone):
     assert ShippingMethod.objects.count() == 1
-    url = reverse('dashboard:shipping-method-add',
-                  kwargs={'shipping_zone_pk': shipping_zone.pk})
+    url = reverse(
+        'dashboard:shipping-method-add', kwargs={
+            'shipping_zone_pk': shipping_zone.pk, 'type': 'price'})
     data = {}
     response = admin_client.post(url, data, follow=True)
     assert response.status_code == 200
