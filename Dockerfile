@@ -56,7 +56,7 @@ COPY --from=build-nodejs /app/templates /app/templates
 WORKDIR /app
 
 RUN useradd --system saleor && \
-    mkdir /app/media /app/static && \
+    mkdir /app/media /app/static /app/saleor/static/assets && \
     chown -R saleor:saleor /app/
 
 USER saleor
